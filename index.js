@@ -19,14 +19,14 @@ client.on('messageCreate', message => {
     console.log('Message received');
 
     const userTriggers = {
-        '130817946032275456': 'kelly',
-        '218955017900654603': 'jigme'
+        '130817946032275456': ['kelly'],
+        '218955017900654603': ['jigme', 'jstest']
     };
 
     const lowerCaseContent = message.content.toLowerCase();
-    const userTriggerWord = userTriggers[message.author.id];
+    const userTriggerWords = userTriggers[message.author.id];
 
-    if (userTriggerWord && lowerCaseContent.includes(userTriggerWord)) {
+    if (userTriggerWords && userTriggerWords.some(trigger => lowerCaseContent.includes(trigger))) {
         console.log('Trigger detected');
         message.reply('https://i.imgur.com/d7V4jkz.gif').then(sentMessage => {
             setTimeout(() => {
