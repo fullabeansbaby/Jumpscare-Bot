@@ -18,15 +18,17 @@ client.once('ready', () => {
 client.on('messageCreate', message => {
     console.log('Message received');
 
-    const specificUsers = ['130817946032275456', '218955017900654603'];
-    const lowerCaseContent = message.content.toLowerCase();
+    const userTriggers = {
+        '130817946032275456': 'kelly',
+        '218955017900654603': 'jigme'
+    };
 
-    if (
-        specificUsers.includes(message.author.id) && 
-        (lowerCaseContent.includes('kelly') || lowerCaseContent === 'whats wrong ?')
-    ) {
+    const lowerCaseContent = message.content.toLowerCase();
+    const userTriggerWord = userTriggers[message.author.id];
+
+    if (userTriggerWord && lowerCaseContent.includes(userTriggerWord)) {
         console.log('Trigger detected');
-        message.reply('Here\'s your GIF: https://i.imgur.com/d7V4jkz.gif').then(sentMessage => {
+        message.reply('https://i.imgur.com/d7V4jkz.gif').then(sentMessage => {
             setTimeout(() => {
                 sentMessage.delete().catch(error => {
                     console.error('Failed to delete the message:', error);
